@@ -1,0 +1,3 @@
+These scripts are to demo breaking in to an Oracle database from just having various levels
+of select access. The final break in is to gain dba access.
+
