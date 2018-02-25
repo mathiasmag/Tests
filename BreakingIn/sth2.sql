@@ -1,4 +1,4 @@
-set echo off
+set echo on
 update (with x1 as (select  1 as a from test),
              x2 as (select  * from test ) select * from x2
         )

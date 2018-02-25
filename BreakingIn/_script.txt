@@ -1,3 +1,47 @@
 These scripts are to demo breaking in to an Oracle database from just having various levels
 of select access. The final break in is to gain dba access.
 
+sys.sql
+    Creates a pluggable database to make sure there is no invisible prep
+    Creates user owner who is the owner of the data we'll try to damage
+    Creates user thief who will be the one hacking the data of user owner.
+    Owner can create tables
+    Thief can create views
+    Both can connect to the database.
+
+ow.sql
+    Create table my_secret_stuff as a copy of data in all_tables
+    User thief gets select access to the table
+
+th_upd.sql
+    Shows a straight update failing just to show that the priviliges are what they should
+
+th1.sql
+    Creates view test that does a straight select through a prefactored SQL.
+
+th2.sql
+    Using the view in a prefactored update with the view two times exposes the bug.
+
+ow_sel.sql
+    Just proving that the data was in fact changed by the user thief
+
+sys_sth.sql
+    Create user superthief to try to do a root (dba) exploit
+    It gets "select any dictionary" and ability to connect to the database
+    It also gets the privilege to create views.
+
+sth1.sql
+    Create a view with a prefactored SQL against sys.sysauth$ (manages what accessa a user 
+    has, such as DBA)
+
+sth2.sql
+    Using an update and the view created in sth1 a priviliege is stolen and changed to give
+    the user superthief DBA access. Game over, the exploit is complete.
+
+sys_rol.sql
+    Just showing that thge exploit actually did what I claim. The user superthief is DBA and
+    can thus lock everyone out.
+
+sys_cleanup.sql
+    Drops the pluggable database so the script is ready to be executed from the top again.
+
